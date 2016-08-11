@@ -1,14 +1,18 @@
 #include <stdio.h>
 
 int main(){
-	int total = 0, contador = 1, nota = 0;
-	while (contador <= 10) {
+	int alunos = 0, contador = 1, nota = 0;
+	double total = 0;
+	printf("Informe o número de alunos\n");
+	scanf("%d",&alunos);
+	while (contador <= alunos) {
 		printf("Informe a nota do aluno %d entre 0 e 100\n",contador);
 		scanf("%d",&nota);
 		total += nota;
 		contador++;
 	}
-	printf("Média = %.2f\n",(double)total/10);
+	total /= alunos;
+	printf("Média = %.3f\n", total);
 
 	return 0;
 }

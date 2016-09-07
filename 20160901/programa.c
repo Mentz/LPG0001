@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "lpg.h"
+#include "lpg.c"
 #include <stdlib.h>
 #include <time.h>
 
@@ -18,7 +19,7 @@ int main(void) {
 		if (op==1) {
 			imprimir(notas);
 		} else if (op==2) {
-			printf("Média da turma = %.2f\n",media_turma(nota));
+			printf("Média da turma = %.2f\n",media_turma(notas));
 		} else if (op==3) {
 			printf("Maior nota = %.2f\n",maior_nota(notas));
 		} else if (op==4) {

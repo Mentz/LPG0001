@@ -8,5 +8,6 @@ float media_turma(int notas[][PROVAS]);
 void imprimir(int notas[][PROVAS]);
 int maior_nota(int notas[][PROVAS]);
 int menor_nota(int notas[][PROVAS]);
+int menu();
 
 #endif

@@ -4,7 +4,7 @@ void imprimir(int m[][PROVAS]) {
 		for(j = 0; j < PROVAS; j++) {
 			printf("[%d][%d]=%d\t",i,j,m[i][j]);
 		}
-		pritnf("\n");
+		printf("\n");
 	}
 }
 
@@ -29,7 +29,7 @@ float media_aluno(int v[]) {
 }
 
 int maior_nota(int m[][PROVAS]) {
-	maior = 0;
+	int maior = 0;
 	int i, j;
 	for (i = 0; i < ALUNOS; i++) {
 		for (j = 0; j < PROVAS; j++) {
@@ -42,7 +42,7 @@ int maior_nota(int m[][PROVAS]) {
 }
 
 int menor_nota(int m[][PROVAS]) {
-	menor = 100;
+	int menor = 100;
 	int i, j;
 	for (i = 0; i < ALUNOS; i++) {
 		for (j = 0; j < PROVAS; j++) {
@@ -52,4 +52,18 @@ int menor_nota(int m[][PROVAS]) {
 		}
 	}
 	return menor;
+}
+
+int menu() {
+	int ret = -1;
+	while(ret<0 || ret>5) {
+		printf("Informe 1 para imprimir\n");
+		printf("Informe 2 para média da turma\n");
+		printf("Informe 3 para maior nota\n");
+		printf("Informe 4 para menor nota\n");
+		printf("Informe 5 para média dos alunos\n");
+		printf("Informe 0 para sair\n");
+		scanf("%d",&ret);
+	}
+	return ret;
 }

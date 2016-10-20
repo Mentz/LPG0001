@@ -26,9 +26,11 @@ void inicializar_matriz(Matriz *m) {
 		}
 	}
 }
+
 void imprimir_matriz(Matriz *m) {
 
 }
+
 void liberar_matriz(Matriz *m, void (*f)(double **m, int ll, int cc)) {
 
 }
@@ -55,6 +57,7 @@ double** criar_bloco(int l, int c) {
 
 	return n;
 }
+
 double** criar_distribuida(int l, int c) {
 	int i;
 	double **n = NULL;
@@ -73,9 +76,11 @@ double** criar_distribuida(int l, int c) {
 
 	return n;
 }
+
 void liberar_bloco(double **m, int l, int c) {
 
 }
+
 void liberar_distribuida(double **m, int l, int c) {
 
 }

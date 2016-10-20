@@ -41,7 +41,9 @@ void liberar_matriz(Matriz *m, void (*f)(double **m, int ll, int cc)) {
 	free(m);
 }
 
+
 /* Manipulação das alocações de matrizes */
+
 double** criar_bloco(int l, int c) {
 	int i;
 	double **n = NULL;
@@ -56,7 +58,7 @@ double** criar_bloco(int l, int c) {
 		printf("Erro ao alocar memória\n");
 		exit(EXIT_FAILURE);
 	}
-	for(i = 0; i < linhas; i++) {
+	for(i = 0; i < l; i++) {
 		n[i] = dados+(c*i);
 	}
 
@@ -83,14 +85,14 @@ double** criar_distribuida(int l, int c) {
 }
 
 void liberar_bloco(double **m, int l, int c) {
-	printf("Liberando matriz de %d linhas e %d colunas\n",l , c);
+	printf("Liberando matriz de %d linhas e %d colunas\n", l, c);
 	free(m[0]);
 	free(m);
 }
 
 void liberar_distribuida(double **m, int l, int c) {
 	int i;
-	printf("Liberando matriz de %d linhas e %d colunas\n",l , c);
+	printf("Liberando matriz de %d linhas e %d colunas\n", l, c);
 	for(i = 0; i < l; i++) {
 		free(m[i]);
 	}

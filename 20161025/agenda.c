@@ -41,7 +41,26 @@ Contato *novo_contato(void) {
 	return ret;
 }
 
-void inserir_contato()
+void inserir_contato(Agenda *a) {
+	int tam_atual = a -> elementos;
+	Contato **tmp = NULL;
+
+	if (!(tmp = (Contato **) realloc(a -> contatos, (tam_atual +1) * sizeof(Contato *)))) {
+		printf("[inserir_contato] Temporariamente sem memória\n");
+		return;
+	}
+	a -> contatos = tmp;
+	a -> contatos[a -> elementos - 1] = novo_contato();
+
+	printf("Prezado usuário. Informe os dados para o índice %d\n", a -> elementos);
+	printf("Informe dia, mês e ano de nascimento\n");
+	scanf("%d%d%d", &a -> contatos[a -> elementos] -> nasc.dia,
+					&a -> contatos[a -> elementos] -> nasc.mes,
+					&a -> contatos[a -> elementos] -> nasc.ano);
+	printf("")
+
+	a -> elementos = a -> elementos + 1;
+}
 
 void libera_contato(Contato *c) {
 	free(c -> nome);

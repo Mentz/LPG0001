@@ -57,7 +57,13 @@ void inserir_contato(Agenda *a) {
 	scanf("%d%d%d", &a -> contatos[a -> elementos] -> nasc.dia,
 					&a -> contatos[a -> elementos] -> nasc.mes,
 					&a -> contatos[a -> elementos] -> nasc.ano);
-	printf("")
+	printf("Informe o nome e telefone\n");
+	scanf("%80s%80s", a -> contatos[a -> elementos] -> nome,
+				  a -> contatos[a -> elementos] -> telefone);
+	printf("Informe seu endereço, complemento e UF\n");
+	scanf("%80s%80s%2s", a -> contatos[a -> elementos] -> end -> endereco,
+					 a -> contatos[a -> elementos] -> end -> complemento,
+					 a -> contatos[a -> elementos] -> end -> UF);
 
 	a -> elementos = a -> elementos + 1;
 }

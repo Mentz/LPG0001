@@ -15,8 +15,7 @@ agenda *inicializa_agenda(void) {
 }
 
 void libera_agenda(Agenda *a) {
-	free(a -> contatos);
-	free(a);
+
 }
 
 Contato *novo_contato(void) {
@@ -73,6 +72,10 @@ void libera_contato(Contato *c) {
 	free(c -> telefone);
 	libera_endereco(end);
 	free(c -> end);
+	c -> nome = NULL;
+	c -> telefone = NULL;
+	c -> end = NULL;
+	// Não faz nada. Apenas para garantir que não será possível acessar por engano.
 	free(c);
 }
 
@@ -97,6 +100,9 @@ Endereco *novo_endereco(void) {
 void libera_endereco(Endereco *end) {
 	free(end -> endereco);
 	free(end -> complemento);
+	end -> endereco = NULL; 
+	end -> complemento = NULL;
+	// mesma coisa, essas três linhas acima não tem efeito algum, é só neurose.
 	free(end);
 }
 

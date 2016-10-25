@@ -21,13 +21,14 @@ typedef struct {
 	Variavel *variaveis;
 } RAMInt;
 
+void memError(void);
 CPUInt* inicializaCPU(void);
 RAMInt* inicializaRAM(void);
 void destruirCPU(CPUInt *);
 void destruirRAM(RAMInt *);
 void declararRAMInt(RAMInt *ram, int valor, char *id);
+void removerRAMInt(RAMInt *ram, int valor, char *id);
 void executarStoreCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig);
 void executarLoadCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig);
-
 
 #endif

@@ -9,6 +9,7 @@ CPUInt* inicializaCPU(void) {
 	cpu -> reg1 = 0;
 	cpu -> reg2 = 0;
 	cpu -> instrucao = NULL;
+	printf("CPUOK\n");
 	return cpu;
 }
 
@@ -17,17 +18,20 @@ RAMInt* inicializaRAM(void) {
 	ram = (RAMInt *) alocar_memoria(sizeof(RAMInt));
 	ram -> elementos = 0;
 	ram -> variaveis = NULL;
+	printf("RAMOK\n");
 	return ram;
 }
 
 void destruirCPU(CPUInt *cpu) {
 	desalocar_memoria(cpu->instrucao);
 	desalocar_memoria(cpu);
+	printf("CPUDED\n");
 }
 
 void destruirRAM(RAMInt *ram) {
 	desalocar_memoria(ram->variaveis);
 	desalocar_memoria(ram);
+	printf("RAMDED\n");
 }
 
 void declararRAMInt(RAMInt *ram, int valor, char *id) {
@@ -37,11 +41,12 @@ void declararRAMInt(RAMInt *ram, int valor, char *id) {
 	ram -> elementos++;
 	ram -> variaveis = (Variavel *) realocar_memoria(ram -> variaveis, sizeof(Variavel) * ram -> elementos);
 	ram -> variaveis[ram -> elementos - 1] = var;
+	printf("RAM_ELEMENTOS = %d\n",ram -> elementos);
 }
 
 void removerRAMInt(RAMInt *ram, int valor, char *id) {
 	if (valor) {		// sair se o valor não for 0;
-		printf("\n");
+		printf("Erro no uso da função\nSegundo argumento da função deve ser \"0\"");
 		return;
 	}
 
@@ -56,6 +61,7 @@ void removerRAMInt(RAMInt *ram, int valor, char *id) {
 
 	ram -> elementos--;
 	ram -> variaveis = (Variavel *) realocar_memoria(ram -> variaveis, sizeof(Variavel) * ram -> elementos);
+	printf("RAM_ELEMENTOS = %d\n",ram -> elementos);
 }
 
 void executarStoreCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig) {
@@ -68,6 +74,7 @@ void executarStoreCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig) {
 		ram -> variaveis[i].valor = cpu -> reg1;
 	else if (strcmp(dest,"reg2") == 0)
 		ram -> variaveis[i].valor = cpu -> reg2;
+	printf("MEMORIA_GUARDADA_COM = %d\n",ram -> variaveis[i].valor);
 }
 
 void executarLoadCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig) {
@@ -80,4 +87,49 @@ void executarLoadCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig) {
 		cpu -> reg1 = ram -> variaveis[i].valor;
 	else if (strcmp(dest,"reg2") == 0)
 		cpu -> reg2 = ram -> variaveis[i].valor;
+	printf("MEMORIA_LIDA_COM = %d\n",ram -> variaveis[i].valor);
+}
+
+void execAdd(CPUInt *cpu, char *dest, char *outro) {
+	if (strcmp(dest,"reg1") == 0)  {
+		cpu -> reg1 += (strcmp(outro,"reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
+		printf("RESULT_ADD = %d\n", cpu -> reg1);
+	}
+	else if (strcmp(dest,"reg2") == 0) {
+		cpu -> reg2 += (strcmp(outro,"reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
+		printf("RESULT_ADD = %d\n", cpu -> reg2);
+	}
+}
+
+void execSub(CPUInt *cpu, char *dest, char *outro) {
+	if (strcmp(dest,"reg1") == 0) {
+		cpu -> reg1 -= (strcmp(outro,"reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
+		printf("RESULT_SUB = %d\n", cpu -> reg1);
+	}
+	else if (strcmp(dest,"reg2") == 0) {
+		cpu -> reg2 -= (strcmp(outro,"reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
+		printf("RESULT_SUB = %d\n", cpu -> reg2);
+	}
+}
+
+void execDiv(CPUInt *cpu, char *dest, char *outro) {
+	if (strcmp(dest,"reg1") == 0) {
+		cpu -> reg1 /= (strcmp(outro,"reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
+		printf("RESULT_DIV = %d\n", cpu -> reg1);
+	}
+	else if (strcmp(dest,"reg2") == 0) {
+		cpu -> reg2 /= (strcmp(outro,"reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
+		printf("RESULT_DIV = %d\n", cpu -> reg2);
+	}
+}
+
+void execMul(CPUInt *cpu, char *dest, char *outro) {
+	if (strcmp(dest,"reg1") == 0) {
+		cpu -> reg1 *= (strcmp(outro,"reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
+		printf("RESULT_MUL = %d\n", cpu -> reg1);
+	}
+	else if (strcmp(dest,"reg2") == 0) {
+		cpu -> reg2 *= (strcmp(outro,"reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
+		printf("RESULT_MUL = %d\n", cpu -> reg2);
+	}
 }

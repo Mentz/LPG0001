@@ -3,8 +3,6 @@
 
 #define TAMANHO_ID 100
 
-char *CPUInt_instrucoes[] = { "load", "store", "add", "mul", "div", "sub", "rem" };
-
 typedef struct {
 	int valor;
 	char identificador[TAMANHO_ID];
@@ -21,7 +19,6 @@ typedef struct {
 	Variavel *variaveis;
 } RAMInt;
 
-void memError(void);
 CPUInt* inicializaCPU(void);
 RAMInt* inicializaRAM(void);
 void destruirCPU(CPUInt *);
@@ -30,5 +27,9 @@ void declararRAMInt(RAMInt *ram, int valor, char *id);
 void removerRAMInt(RAMInt *ram, int valor, char *id);
 void executarStoreCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig);
 void executarLoadCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig);
+void execAdd(CPUInt *cpu, char *dest, char *outro);
+void execSub(CPUInt *cpu, char *dest, char *outro);
+void execDiv(CPUInt *cpu, char *dest, char *outro);
+void execMul(CPUInt *cpu, char *dest, char *outro);
 
 #endif

@@ -26,6 +26,9 @@ Contato *novo_contato(void) {
 		printf("[novo_contato] Sem memória\n");
 		exit(EXIT_FAILURE);
 	}
+	ret -> nasc.dia = 0;
+	ret -> nasc.mes = 0;
+	ret -> nasc.ano = 0;
 	if (!(ret -> nome = (char *) malloc(sizeof(char) * TAM_NOME))) {
 		printf("[novo_contato] Sem memória\n");
 		exit(EXIT_FAILURE);
@@ -34,11 +37,18 @@ Contato *novo_contato(void) {
 		printf("[novo_contato] Sem memória\n");
 		exit(EXIT_FAILURE);
 	}
-	ret -> end = novo_contato();
+	ret -> end = novo_endereco();
+	return ret;
 }
 
-void libera_contato(Contato *c) {
+void inserir_contato()
 
+void libera_contato(Contato *c) {
+	free(c -> nome);
+	free(c -> telefone);
+	libera_endereco(end);
+	free(c -> end);
+	free(c);
 }
 
 Endereco *novo_endereco(void) {
@@ -56,11 +66,13 @@ Endereco *novo_endereco(void) {
 		printf("[novo_endereco] Sem memória\n");
 		exit(EXIT_FAILURE);
 	}
-
+	return ret;
 }
 
 void libera_endereco(Endereco *end) {
-
+	free(end -> endereco);
+	free(end -> complemento);
+	free(end);
 }
 
 void lista_pessoas(Agenda *a) {

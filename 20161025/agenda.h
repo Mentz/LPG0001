@@ -34,6 +34,7 @@ agenda *inicializa_agenda(void);
 void libera_agenda(Agenda *a);
 
 Contato *novo_contato(void);
+void inserir_contato(Agenda *a);
 void libera_contato(Contato *c);
 Endereco *novo_endereco(void);
 void libera_endereco(Endereco *end);

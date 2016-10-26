@@ -4,20 +4,20 @@
 #define TAMANHO_ID 100
 
 typedef struct {
-	int valor;
-	char identificador[TAMANHO_ID];
-} Variavel;
+	int valor;							// 4b
+	char identificador[TAMANHO_ID];		// 100b
+} Variavel;								// total 104b
 
 typedef struct {
-	int reg1;
-	int reg2;
-	char *instrucao;
-} CPUInt;
+	int reg1;							// 4b
+	int reg2;							// 4b
+	char *instrucao;					// 8b
+} CPUInt;								// total 16b
 
 typedef struct {
-	int elementos;
-	Variavel *variaveis;
-} RAMInt;
+	int elementos;						// 4b
+	Variavel *variaveis;				// 8b
+} RAMInt;								// total 12b
 
 CPUInt* inicializaCPU(void);
 RAMInt* inicializaRAM(void);

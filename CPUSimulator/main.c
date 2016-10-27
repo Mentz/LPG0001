@@ -55,6 +55,8 @@ int main(int argc, char **argv) {
 	destruirRAM(ram);
 	cpu = NULL;
 	memoria_alocada();
+	variaveis_alocadas();
+	variaveis_ativas();
 
 	return 0;
 }

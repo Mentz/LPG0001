@@ -31,5 +31,6 @@ void execAdd(CPUInt *cpu, char *dest, char *outro);
 void execSub(CPUInt *cpu, char *dest, char *outro);
 void execDiv(CPUInt *cpu, char *dest, char *outro);
 void execMul(CPUInt *cpu, char *dest, char *outro);
+int encontrarVar(RAMInt *ram, char *id);
 
 #endif

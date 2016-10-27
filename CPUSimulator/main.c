@@ -12,37 +12,37 @@ int main(int argc, char **argv) {
 	cpu = (CPUInt *) inicializaCPU();
 	RAMInt *ram = NULL;
 	ram = (RAMInt *) inicializaRAM();
-	while(scanf("%s", inst) != EOF) {
+	while(scanf("%10s", inst) != EOF) {
 		if (strcmp(inst, CPUInt_instrucoes[0]) == 0) { 		// int <var> <valor>
-			scanf("%s%d", id1, &valor);
+			scanf("%100s%d", id1, &valor);
 			declararRAMInt(ram, valor, id1);
 		} else
 		if (strcmp(inst, CPUInt_instrucoes[1]) == 0) {		// rem <var> 0
-			scanf("%s%d", id1, &valor);
+			scanf("%100s%d", id1, &valor);
 			removerRAMInt(ram, valor, id1);
 		} else
 		if (strcmp(inst, CPUInt_instrucoes[2]) == 0) {		// load <reg_destino> <mem_origem>
-			scanf("%s%s", id1, id2);
+			scanf("%100s%100s", id1, id2);
 			executarLoadCPUInt(cpu, ram, id1, id2);
 		} else
 		if (strcmp(inst, CPUInt_instrucoes[3]) == 0) {		// store <mem_destino> <reg_origem>
-			scanf("%s%s", id1, id2);
+			scanf("%100s%100s", id1, id2);
 			executarStoreCPUInt(cpu, ram, id1, id2);
 		} else
 		if (strcmp(inst, CPUInt_instrucoes[4]) == 0) {		// add <reg_b> <reg_a>
-			scanf("%s%s", id1, id2);
+			scanf("%100s%100s", id1, id2);
 			execAdd(cpu, id1, id2);
 		} else
 		if (strcmp(inst, CPUInt_instrucoes[5]) == 0) {		// sub <reg_b> <reg_a>
-			scanf("%s%s", id1, id2);
+			scanf("%100s%100s", id1, id2);
 			execSub(cpu, id1, id2);
 		} else
 		if (strcmp(inst, CPUInt_instrucoes[6]) == 0) {		// div <reg_b> <reg_a>
-			scanf("%s%s", id1, id2);
+			scanf("%100s%100s", id1, id2);
 			execDiv(cpu, id1, id2);
 		} else
 		if (strcmp(inst, CPUInt_instrucoes[7]) == 0) {		// mul <reg_b> <reg_a>
-			scanf("%s%s", id1, id2);
+			scanf("%100s%100s", id1, id2);
 			execMul(cpu, id1, id2);
 		}
 		if (strcmp(inst, "memuse") == 0) {					// memuse - retorna bytes alocados

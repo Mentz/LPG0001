@@ -5,6 +5,8 @@ int main(void) {
 	Agenda *agenda = NULL;
 	int operacao = 0;
 
+	agenda = (Agenda *) inicializa_agenda();
+
 	printf("Informe 1 para cadastrar um contato;\n"
 		   "2 para listar contatos;\n"
 		   "-1 para sair.\n");

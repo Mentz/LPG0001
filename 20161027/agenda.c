@@ -25,22 +25,27 @@ void libera_agenda(Agenda *a) {
 
 Contato *novo_contato(void) {
 	Contato *ret = NULL;
-
+	printf("1\n");
 	if (!(ret = (Contato *) malloc(sizeof(Contato *)))) {
 		printf("[novo_contato] Sem memória\n");
 		exit(EXIT_FAILURE);
 	}
+	printf("2\n");
 	ret -> nasc.dia = 0;
 	ret -> nasc.mes = 0;
 	ret -> nasc.ano = 0;
-	if (!(ret -> nome = (char *) malloc(sizeof(char) * TAM_NOME))) {
+	/*ret -> nome*/ char *teste = (char *) malloc(sizeof(char) * TAM_NOME);
+	if (ret -> nome == NULL) {
 		printf("[novo_contato] Sem memória\n");
 		exit(EXIT_FAILURE);
 	}
-	if (!(ret -> telefone = (char *) malloc(sizeof(char) * TAM_TELEFONE))) {
+	printf("3\n");
+	ret -> telefone = (char *) malloc(sizeof(char) * TAM_TELEFONE);
+	if (ret -> telefone == NULL) {
 		printf("[novo_contato] Sem memória\n");
 		exit(EXIT_FAILURE);
 	}
+	printf("4\n");
 	ret -> end = novo_endereco();
 	return ret;
 }
@@ -52,6 +57,7 @@ void inserir_contato(Agenda *a) {
 		printf("[inserir_contato] Temporariamente sem memória\n");
 		return;
 	}
+
 	a -> contatos[a -> elementos] = novo_contato();
 
 	printf("Prezado usuário. Informe os dados para o índice %d\n", a -> elementos);
@@ -105,7 +111,7 @@ void libera_endereco(Endereco *end) {
 	free(end -> complemento);
 	end -> endereco = NULL; 
 	end -> complemento = NULL;
-	// mesma coisa, essas três linhas acima não tem efeito algum, é só neurose.
+	// mesma coisa, essas duas linhas acima não tem efeito algum, é só neurose.
 	free(end);
 }
 

@@ -27,10 +27,11 @@ void declararRAMInt(RAMInt *ram, int valor, char *id);
 void removerRAMInt(RAMInt *ram, int valor, char *id);
 void executarStoreCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig);
 void executarLoadCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig);
-void execAdd(CPUInt *cpu, char *dest, char *outro);
-void execSub(CPUInt *cpu, char *dest, char *outro);
-void execDiv(CPUInt *cpu, char *dest, char *outro);
-void execMul(CPUInt *cpu, char *dest, char *outro);
+void ciclo(CPUInt *cpu, char *dest, char *outro, int (*f)(int a, int b));
+int execAdd(int a, int b);
+int execSub(int a, int b);
+int execDiv(int a, int b);
+int execMul(int a, int b);
 int encontrarVar(RAMInt *ram, char *id);
 
 #endif

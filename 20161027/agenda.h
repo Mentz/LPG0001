@@ -7,28 +7,28 @@
 #define TAM_TELEFONE 20
 
 typedef struct {
-	int dia;
-	int mes;
-	int ano;
-} Nascimento;
+	int dia;			// 4b
+	int mes;			// 4b
+	int ano;			// 4b
+} Nascimento;			// T: 12b
 
 typedef struct {
-	char *endereco;
-	char *complemento;
-	char uf[2];
-} Endereco;
+	char *endereco;		// 8b
+	char *complemento;	// 8b
+	char uf[2];			// 2b
+} Endereco;				// T: 18b
 
 typedef struct {
-	char *nome;
-	char *telefone;
-	Nascimento nasc;
-	Endereco *end;
-} Contato;
+	char *nome;			// 8b
+	char *telefone;		// 8b
+	Nascimento nasc;	// 12b
+	Endereco *end;		// 8b
+} Contato;				// T: 36b
 
 typedef struct {
-	Contato **contatos;		// 8b
-	int elementos; 			// 4b
-} Agenda;					// 12b
+	Contato **contatos;	// 8b
+	int elementos; 		// 4b
+} Agenda;				// T: 12b
 
 Agenda *inicializa_agenda(void);
 void libera_agenda(Agenda *a);

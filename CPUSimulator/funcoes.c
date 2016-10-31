@@ -3,13 +3,15 @@
 #include "aloca_memoria.h"
 #include "funcoes.h"
 
-#define DEBUG			// comente ou descomente essa linha para exibir debug no terminal
+//#define DEBUG			// descomente essa linha para exibir debug da execução no terminal
 
 #ifdef DEBUG
 #define PRINTD printf
 #else
 #define PRINTD(format, args...) ((void)0)
 #endif
+
+char *CPUInt_instrucoes[] = { "int", "rem", "load", "store", "add", "sub", "div", "mul" };
 
 CPUInt* inicializaCPU(void) {
 	CPUInt *cpu = NULL;
@@ -79,22 +81,9 @@ void removerRAMInt(RAMInt *ram, int valor, char *id) {
 
 }
 
-void executarStoreCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig) {
-	int pos = encontrarVar(ram, dest);
-	if (pos != -1) {
-		if (strcmp(orig, "reg1") == 0) 
-			ram -> variaveis[pos].valor = cpu -> reg1;
-		else if (strcmp(dest, "reg2") == 0)
-			ram -> variaveis[pos].valor = cpu -> reg2;
-		PRINTD("MEMORIA_GUARDADA_COM = %d\n", ram -> variaveis[pos].valor);
-	} else {
-		PRINTD("MEMORIA_INEXISTENTE\n");
-	}
-}
-
 void executarLoadCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig) {
 	int pos = encontrarVar(ram, orig);
-	if (pos != -1) {
+	if (pos != -1 && strcmp(cpu -> instrucao, CPUInt_instrucoes[2]) == 0) {
 		if (strcmp(dest, "reg1") == 0) 
 			cpu -> reg1 = ram -> variaveis[pos].valor;
 		else if (strcmp(dest, "reg2") == 0)
@@ -105,48 +94,46 @@ void executarLoadCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig) {
 	}
 }
 
-void execAdd(CPUInt *cpu, char *dest, char *outro) {
-	if (strcmp(dest, "reg1") == 0)  {
-		cpu -> reg1 += (strcmp(outro, "reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
-		PRINTD("RESULT_ADD = %d\n", cpu -> reg1);
-	}
-	else if (strcmp(dest, "reg2") == 0) {
-		cpu -> reg2 += (strcmp(outro, "reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
-		PRINTD("RESULT_ADD = %d\n", cpu -> reg2);
-	}
-}
-
-void execSub(CPUInt *cpu, char *dest, char *outro) {
-	if (strcmp(dest, "reg1") == 0) {
-		cpu -> reg1 -= (strcmp(outro, "reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
-		PRINTD("RESULT_SUB = %d\n", cpu -> reg1);
-	}
-	else if (strcmp(dest, "reg2") == 0) {
-		cpu -> reg2 -= (strcmp(outro, "reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
-		PRINTD("RESULT_SUB = %d\n", cpu -> reg2);
+void executarStoreCPUInt(CPUInt *cpu, RAMInt *ram, char *dest, char *orig) {
+	int pos = encontrarVar(ram, dest);
+	if (pos != -1 && strcmp(cpu -> instrucao, CPUInt_instrucoes[3]) == 0) {
+		if (strcmp(orig, "reg1") == 0) 
+			ram -> variaveis[pos].valor = cpu -> reg1;
+		else if (strcmp(dest, "reg2") == 0)
+			ram -> variaveis[pos].valor = cpu -> reg2;
+		PRINTD("MEMORIA_GUARDADA_COM = %d\n", ram -> variaveis[pos].valor);
+	} else {
+		PRINTD("MEMORIA_INEXISTENTE\n");
 	}
 }
 
-void execDiv(CPUInt *cpu, char *dest, char *outro) {
+void ciclo(CPUInt *cpu, char *dest, char *outro, int (*f)(int a, int b)) {
+	int tmp = (*f)((strcmp(dest, "reg1") == 0) ? cpu -> reg1 : cpu -> reg2,
+			   (strcmp(outro, "reg1") == 0) ? cpu -> reg1 : cpu -> reg2);
 	if (strcmp(dest, "reg1") == 0) {
-		cpu -> reg1 /= (strcmp(outro, "reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
-		PRINTD("RESULT_DIV = %d\n", cpu -> reg1);
+		cpu -> reg1 = tmp;
+		PRINTD("RESULT_%s = %d\n", cpu -> instrucao, cpu -> reg1);
 	}
 	else if (strcmp(dest, "reg2") == 0) {
-		cpu -> reg2 /= (strcmp(outro, "reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
-		PRINTD("RESULT_DIV = %d\n", cpu -> reg2);
+		cpu -> reg2 = tmp;
+		PRINTD("RESULT_%s = %d\n", cpu -> instrucao, cpu -> reg2);
 	}
 }
 
-void execMul(CPUInt *cpu, char *dest, char *outro) {
-	if (strcmp(dest, "reg1") == 0) {
-		cpu -> reg1 *= (strcmp(outro, "reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
-		PRINTD("RESULT_MUL = %d\n", cpu -> reg1);
-	}
-	else if (strcmp(dest, "reg2") == 0) {
-		cpu -> reg2 *= (strcmp(outro, "reg2") == 0) ? cpu -> reg2 : cpu -> reg1;
-		PRINTD("RESULT_MUL = %d\n", cpu -> reg2);
-	}
+int execAdd(int a, int b) {
+	return a + b;
+}
+
+int execSub(int a, int b) {
+	return a - b;
+}
+
+int execDiv(int a, int b) {
+	return a / b;
+}
+
+int execMul(int a, int b) {
+	return a * b;
 }
 
 int encontrarVar(RAMInt *ram, char *id) {

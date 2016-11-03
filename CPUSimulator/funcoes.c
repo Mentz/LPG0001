@@ -3,7 +3,7 @@
 #include "aloca_memoria.h"
 #include "funcoes.h"
 
-//#define DEBUG			// descomente essa linha para exibir debug da execução no terminal
+#define DEBUG			// descomente essa linha para exibir debug da execução no terminal
 
 #ifdef DEBUG
 #define PRINTD printf

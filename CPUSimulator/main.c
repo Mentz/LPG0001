@@ -3,7 +3,7 @@
 #include "aloca_memoria.h"
 #include "funcoes.h"
 
-//#define MEMDEBUG		// descomente essa linha para exibir estado da alocação de memória no final da execução
+#define MEMDEBUG		// descomente essa linha para exibir estado da alocação de memória no final da execução
 
 char *Comandos[] = { "int", "rem", "load", "store", "add", "sub", "div", "mul", "memuse" };
 
@@ -14,6 +14,7 @@ int main(int argc, char **argv) {
 	cpu = (CPUInt *) inicializaCPU();
 	RAMInt *ram = NULL;
 	ram = (RAMInt *) inicializaRAM();
+	int (*f[])(int a, int b) = {execAdd, execSub, execDiv, execMul};
 	while(scanf("%10s", inst) != EOF) {
 		if (strcmp(inst, Comandos[0]) == 0) { 		// int <var> <valor>
 			scanf("%100s%d", id1, &valor);
@@ -38,22 +39,22 @@ int main(int argc, char **argv) {
 		if (strcmp(inst, Comandos[4]) == 0) {		// add <reg_b> <reg_a>
 			scanf("%100s%100s", id1, id2);
 			cpu -> instrucao = Comandos[4];
-			ciclo(cpu, id1, id2, execAdd);
+			ciclo(cpu, id1, id2, f[0]);
 		} else
 		if (strcmp(inst, Comandos[5]) == 0) {		// sub <reg_b> <reg_a>
 			scanf("%100s%100s", id1, id2);
 			cpu -> instrucao = Comandos[5];
-			ciclo(cpu, id1, id2, execSub);
+			ciclo(cpu, id1, id2, f[1]);
 		} else
 		if (strcmp(inst, Comandos[6]) == 0) {		// div <reg_b> <reg_a>
 			scanf("%100s%100s", id1, id2);
 			cpu -> instrucao = Comandos[6];
-			ciclo(cpu, id1, id2, execDiv);
+			ciclo(cpu, id1, id2, f[2]);
 		} else
 		if (strcmp(inst, Comandos[7]) == 0) {		// mul <reg_b> <reg_a>
 			scanf("%100s%100s", id1, id2);
 			cpu -> instrucao = Comandos[7];
-			ciclo(cpu, id1, id2, execMul);
+			ciclo(cpu, id1, id2, f[3]);
 		} else
 		if (strcmp(inst, Comandos[8]) == 0) {		// memuse - retorna bytes alocados
 			memoria_alocada();

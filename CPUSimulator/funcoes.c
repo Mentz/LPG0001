@@ -1,3 +1,8 @@
+/*
+ * Autores: Leonardo Valério Anastácio e Lucas Litter Mentz
+ * Última modificação: 5 de novembro de 2016
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include "aloca_memoria.h"

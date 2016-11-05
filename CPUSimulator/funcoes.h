@@ -1,3 +1,8 @@
+/*
+ * Autores: Leonardo Valério Anastácio e Lucas Litter Mentz
+ * Última modificação: 5 de novembro de 2016
+ */
+
 #ifndef _FUNCOES_H_
 #define _FUNCOES_H_
 

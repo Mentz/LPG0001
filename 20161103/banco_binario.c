@@ -5,10 +5,10 @@ int menu(void) {
 	int i = -2;
 	printf("Informe -1 para sair.\n0 para cadastrar\n1 para remover\n2 para atualizar\n3 para gerar um relatorio\n");
 	while (i < -1 || i > 3) {
-		scanf("%d", i);
+		scanf("%d", &i);
 	}
 
-	return 1;
+	return i;
 }
 
 void cadastrar_cliente (FILE *arquivo) {
@@ -19,7 +19,7 @@ void cadastrar_cliente (FILE *arquivo) {
 	scanf("%d", &codigo);
 
 	fseek(arquivo, codigo * sizeof(Cliente), SEEK_SET);
-	fread(&e, sizeof(CLIENTE), 1, arquivo);
+	fread(&e, sizeof(Cliente), 1, arquivo);
 
 	if (e.conta != -1) {
 		printf("O código %d já foi ocupado\n", codigo);
@@ -41,11 +41,11 @@ void remover_cliente (FILE *arquivo) {
 	Cliente e = {-1, "", "", 0.0};
 	Cliente v = {-1, "", "", 0.0};
 
-	printf("Informe o código do cliente [1, 100]\n");
+	printf("Informe o código do cliente [0, 99]\n");
 	scanf("%d", &e.conta);
 
 	fseek(arquivo, e.conta * sizeof(Cliente), SEEK_SET);
-	fread(&e, sizeof(CLIENTE), 1, arquivo);
+	fread(&e, sizeof(Cliente), 1, arquivo);
 
 	if (e.conta == -1) {
 		printf("A conta não foi ocupada\n");
@@ -59,12 +59,28 @@ void remover_cliente (FILE *arquivo) {
 }
 
 void atualizar_cliente (FILE *arquivo) {
+	Cliente e = {-1, "", "", 0.0};
+	double operacao = 0; // negativo para saque, positivo para depósito.
+	int conta;
 
+	printf("Informe o código do cliente [0, 99]\n");
+	scanf("%d",&conta);
+
+	fseek(arquivo, conta * sizeof(Cliente), SEEK_SET);
+	fread(&e, sizeof(Cliente), 1, arquivo);
+	if (e.conta == -1) {
+		printf("Cliente não cadastrado\n");
+		return;
+	}
+
+	printf("Cliente %s %s\nO saldo atual é %.2lf\n", e.nome, e.sobrenome, e.saldo);
+	printf("Informe o valor da operação: - para saque\n");
+	scanf("%lf", &operacao);
+	e.saldo += operacao;
+	fseek(arquivo, conta * sizeof(Cliente), SEEK_SET);
+	fwrite(&e, sizeof(Cliente), 1, arquivo);
 }
 
 void relatorio (FILE *arquivo) {
 
 }
-
-
-#endif

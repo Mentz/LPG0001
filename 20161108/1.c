@@ -9,9 +9,10 @@ typedef struct {
 
 int main(void) {
 	FILE *arquivo = NULL;
-	Cliente e = {0, "", "", 0.0};
+	Cliente e = {-1, "", "", 0.0};
 	int i;
-	if (!(arquivo = fopen("dados.dat", "wb"))) {		// "wb" = write (sobrescreve se existente) em binary
+	if (!(arquivo = fopen("dados.dat", "wb"))) {
+	// "wb" = write (sobrescreve se existente) em binário
 		printf("Erro ao criar arquivo\n");
 		return 1;
 	}

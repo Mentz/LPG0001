@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	arquivo = fopen(argv[1], "rb+");
+	// rb+ = leitura binário com escrita
 
 	if (!arquivo) {
 		printf("Erro ao acessar o arquivo %s\n", argv[1]);
@@ -21,6 +22,7 @@ int main(int argc, char *argv[]) {
 	while ((op = menu()) != -1) {
 		f[op](arquivo);
 	}
-
+	fclose(arquivo);
+	
 	return 0;
 }
